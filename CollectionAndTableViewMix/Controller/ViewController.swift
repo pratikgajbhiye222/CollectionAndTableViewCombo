@@ -9,40 +9,23 @@
 import UIKit
 
 class ViewController: UIViewController , UICollectionViewDelegate , UICollectionViewDelegateFlowLayout , UITableViewDelegate {
-   
     
+    //tableVIew
     @IBOutlet weak var tableview: UITableView!
     
-    private let models = ["sport1.jpg","sport2.jpg","sport3.jpg","sport4.jpg"]
-    
-    private let nameLabel : [String] = ["Cricket","FootBall","Swimming","Dance"]
-    
-    private let tableviewList = ["1","2","3","4"]
-    
-    class ModelClass {
-        var cImage = "sport1.jpg"
-        var cName = "Cricket"
-        var tData = ["1","2","3","4"]
-        var index = 1
-       
-        
-    }
-    
-
+    //CollectionView
     private var collectionView: UICollectionView?
     
-    var modelClass : ModelClass = ModelClass()
-    
     var viewModel = PerformanceDetailsViewModel()
-
-  override func viewDidLoad() {
+    
+    override func viewDidLoad() {
         super.viewDidLoad()
         addView()
-//        self.circularProgressBarView.value = 0
-    tableview.dataSource = viewModel
-    tableview.delegate = self
-
-    
+        //        self.circularProgressBarView.value = 0
+        tableview.dataSource = viewModel
+        tableview.delegate = self
+        
+        
         tableview.register(TableViewCell.nib, forCellReuseIdentifier: TableViewCell.identifier)
         
     }
@@ -50,8 +33,6 @@ class ViewController: UIViewController , UICollectionViewDelegate , UICollection
     
     override func viewWillAppear(_ animated: Bool) {
         
-        
-      
     }
     
     func addView(){
@@ -68,27 +49,32 @@ class ViewController: UIViewController , UICollectionViewDelegate , UICollection
         collectionView?.dataSource = viewModel
         
         guard let myCollectionView = collectionView else {
-                  return
-              }
-              view.addSubview(myCollectionView)
-          }
-          
-          
-          
-          
-          override func viewDidLayoutSubviews() {
-              super.viewDidLayoutSubviews()
-              collectionView?.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: 100)
-          }
+            return
+        }
+        view.addSubview(myCollectionView)
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView?.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: 100)
+    }
+    
+    
+    /*
+     here i want to reload the tableview data as per the collection view cell selelcted ,
+     the collection view will act as top menu bar , and all data which is in tableview and collection will be dynamic
+     As soon as user select any cell from top (from collection view) tableview will change the value
+     */
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("want to reloading data")
+        tableview.reloadData()
         
     }
-
-          
-         
-          
-          
+    
+    
+    
+    
+    
 }
 
 

@@ -8,13 +8,30 @@
 
 import Foundation
 import UIKit
+
+//Data for collectionView
 enum PerformaceDetailsViewModelType{
     case performanceList
 }
 
+//Data for tableview
 enum TVPerformaceDetailsViewModelType{
     case performaceDetails
 }
+
+//Data for collectionView
+
+protocol PerformanceDetailsViewModelItems {
+    var type: PerformaceDetailsViewModelType { get }
+    var rowCount: Int { get }
+}
+
+extension PerformanceDetailsViewModelItems {
+    var rowCount: Int {
+        return 1
+    }
+}
+//Data for tableview
 
 protocol TVPerformanceDetailsViewModelItems {
     var type: TVPerformaceDetailsViewModelType { get }
@@ -29,16 +46,7 @@ extension TVPerformanceDetailsViewModelItems {
 
 
 
-protocol PerformanceDetailsViewModelItems {
-    var type: PerformaceDetailsViewModelType { get }
-    var rowCount: Int { get }
-}
-
-extension PerformanceDetailsViewModelItems {
-    var rowCount: Int {
-        return 1
-    }
-}
+//Data for collectionView
 
 class PerformanceDetailsViewModelCollectionCellItem: PerformanceDetailsViewModelItems {
     var type: PerformaceDetailsViewModelType{
@@ -52,6 +60,8 @@ class PerformanceDetailsViewModelCollectionCellItem: PerformanceDetailsViewModel
         self.performanceDetailsList = performanceDetailsList
     }
 }
+
+//Data for tableview
 
 class PerformanceViewModelTableViewDetails: TVPerformanceDetailsViewModelItems {
     var type: TVPerformaceDetailsViewModelType{
@@ -67,6 +77,8 @@ class PerformanceViewModelTableViewDetails: TVPerformanceDetailsViewModelItems {
     
 }
 
+//MARK:-  View Model
+
 class PerformanceDetailsViewModel : NSObject{
     var items = [PerformanceDetailsViewModelItems]()
     var tableItems = [TVPerformanceDetailsViewModelItems]()
@@ -78,12 +90,17 @@ class PerformanceDetailsViewModel : NSObject{
                 return
         }
         
-         let perfoamance =  performanceDetailslist.result
-    
+        
+        //Data for collectionView
+        
+        let perfoamance =  performanceDetailslist.result
+        
         if !perfoamance.isEmpty {
             let performaceListItem = PerformanceDetailsViewModelCollectionCellItem(performanceDetailsList : perfoamance)
             items.append(performaceListItem)
         }
+        
+        //Data for tableView
         
         let tableCellDetails = performanceDetailslist.result.first!.performance
         if !tableCellDetails.isEmpty {
@@ -95,6 +112,8 @@ class PerformanceDetailsViewModel : NSObject{
 }
 
 
+
+//MARK:- CollectionViewDataSource
 extension PerformanceDetailsViewModel: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return items[section].rowCount
@@ -113,17 +132,17 @@ extension PerformanceDetailsViewModel: UICollectionViewDataSource {
         }
     }
     
-
+    
 }
 
-
+//MARK:- TableViewDataSource
 extension PerformanceDetailsViewModel : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         tableItems[section].rowCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         let item = tableItems[indexPath.section]
+        let item = tableItems[indexPath.section]
         
         switch item.type {
         case .performaceDetails:
@@ -134,8 +153,6 @@ extension PerformanceDetailsViewModel : UITableViewDataSource {
             return UITableViewCell()
         }
     }
-    
-    
 }
 
 

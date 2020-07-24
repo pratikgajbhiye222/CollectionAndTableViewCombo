@@ -43,8 +43,8 @@ extension UIImageView {
                     UIImageView.imageCache.setObject(fetchedImage, forKey: "\(urlString.hash)" as NSString)
                     guard let pastImageUrl = self?.imageURL,
                         url.absoluteString == pastImageUrl else {
-                        self?.image = nil
-                        return
+                            self?.image = nil
+                            return
                     }
                     let animation = CATransition()
                     animation.type = CATransitionType.fade
