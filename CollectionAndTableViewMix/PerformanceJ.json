@@ -1,0 +1,24 @@
+{
+  "data":{
+    "result":[
+    {
+      "index": 0,
+      "title":"Cricket",
+      "headerImage":"https://homepages.cae.wisc.edu/~ece533/images/girl.png",
+      "performance":[
+        {
+          "sessionStartDate": "2020-07-23 10:00:00",
+          "endDate": "2020-07-23 10:00:00",
+          "academyName": "Zone academy",
+          "category": "Batting",
+          "circularBarRating": 20,
+          "linearBarRating": 40,
+          "level": "Begginer",
+          "totalNoOfSession": "30",
+          "sessionAttended": "20"
+        }
+        ]
+    }
+    ]
+  }
+}
